@@ -5,6 +5,7 @@
 
 \usepackage{cmap}
 \usepackage{lipsum}  
+\usepackage{chngcntr}\counterwithout{table}{chapter}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
@@ -20,30 +21,29 @@
 \usepackage{multicol}
 \usepackage{listings}
 \usepackage{graphicx}
-\graphicspath{ {img/} }
+\graphicspath{ {assets/} }
 \usepackage{placeins}
 \usepackage{multirow}
 \usepackage{paralist}
+\usepackage{float}
 
 \usepackage{longtable}
 \usepackage{makecell}
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
-\usepackage{caption, tabularx}
-\usepackage{subcaption}
-	\DeclareCaptionFont{white}{\color{white}} %% это сделает текст заголовка 
-	\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
-	\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
-	\captionsetup{justification=raggedright,singlelinecheck=false}
+\usepackage{caption, subcaption}
+\captionsetup[table]{justification=raggedright,singlelinecheck=false}
+
+\usepackage{xltabular, tabularx}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\renewcommand{\headrulewidth}{0pt} % remove lines as well
+\renewcommand{\headrulewidth}{0pt} 
 \fancyhf{}
 \fancyfoot[C]{\thepage}
 
 \fancypagestyle{plain} {
-	\renewcommand{\headrulewidth}{0pt} % remove lines as well
+	\renewcommand{\headrulewidth}{0pt}
 	\fancyhf{}
   \fancyfoot[C]{\thepage}
 }
@@ -51,7 +51,6 @@
 \usepackage{titletoc, amsmath, lastpage} %подключаем нужные пакеты расширений
 \usepackage[raggedright]{titlesec} % не переносить заголовки
 
-\renewcommand{\chaptertitlename}{ГЛАВА}
 \titleformat{\chapter}[block]
 {\centering\Large\bfseries}{\chaptertitlename\ \thechapter .}{4pt}{\MakeUppercase}
 
@@ -76,15 +75,15 @@
 }
 
 \renewcommand{\cftaftertoctitle}{\hfill}
-\renewcommand{\cftbeforetoctitleskip}{0cm}
-\renewcommand{\cftaftertoctitleskip}{1.0\baselineskip}
 
-\makeatletter
-\renewcommand{\l@chapter}{\@dottedtocline{1}{0em}{0.9em}}
-\renewcommand{\l@section}{\@dottedtocline{1}{0em}{1.6em}}
-\renewcommand{\l@subsection}{\@dottedtocline{2}{0em}{2.6em}}
-\renewcommand{\l@subsubsection}{\@dottedtocline{3}{0em}{4.5em}}
-\makeatother
+\setlength{\cftchapindent}{0pt}
+\setlength{\cftsecindent}{0pt}
+\setlength{\cftsubsecindent}{0pt}
+\cftsetindents{section}{0pt}{1.0\baselineskip}
+\cftsetindents{chapter}{0pt}{1.0\baselineskip}
+
+\titlelabel{\thetitle.\quad}
+
 
 \titlecontents{chapter}% <section-type>
 [0pt]% <left>
@@ -102,7 +101,6 @@
   \secdef\@chapter\@schapter}
 \makeatother
 
-% end config table of content
 
 \makeatletter
 \renewcommand\large{\@setfontsize\large{14}{16}}
@@ -110,16 +108,26 @@
 \renewcommand\Large{\@setfontsize\LARGE{14}{16}}
 \makeatother
 
+\usepackage{xargs}
+\newcommandx{\fig}[3][1=, 2=1]{
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=#2\textwidth]{#3}
+    \caption{#1}
+  \end{figure}
+}
+
 \usepackage{placeins} % floatbarrier
 \usepackage{setspace} %line spacing
 
 
-\renewcommand{\theenumi}{\arabic{enumi}}% Меняем везде перечисления на цифра.цифра
-\renewcommand{\labelenumi}{\arabic{enumi}}% Меняем везде перечисления на цифра.цифра
-\renewcommand{\theenumii}{.\arabic{enumii}}% Меняем везде перечисления на цифра.цифра
-\renewcommand{\labelenumii}{\hspace*{1cm}\arabic{enumi}.\arabic{enumii}.}% Меняем везде перечисления на цифра.цифра
-\renewcommand{\theenumiii}{.\arabic{enumiii}}% Меняем везде перечисления на цифра.цифра
-\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}% Меняем везде перечисления на цифра.цифра
+% Меняем везде перечисления на цифра.цифра
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\arabic{enumi}}
+\renewcommand{\theenumii}{.\arabic{enumii}}
+\renewcommand{\labelenumii}{\hspace*{1cm}\arabic{enumi}.\arabic{enumii}.}
+\renewcommand{\theenumiii}{.\arabic{enumiii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}
 
 \renewcommand{\cellalign}{vh}
 \renewcommand{\theadalign}{vh}
@@ -127,24 +135,24 @@
 \newcommand{\chaperWONum}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
 
 \lstset{ %
-language=java,                 % выбор языка для подсветки (здесь это С)
-basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
-numbers=left,               % где поставить нумерацию строк (слева\справа)
-numberstyle=\tiny,           % размер шрифта для номеров строк
-stepnumber=1,                   % размер шага между двумя номерами строк
+language=java,                % выбор языка для подсветки (здесь это С)
+basicstyle=\small\sffamily,   % размер и начертание шрифта для подсветки кода
+numbers=left,                 % где поставить нумерацию строк (слева\справа)
+numberstyle=\tiny,            % размер шрифта для номеров строк
+stepnumber=1,                 % размер шага между двумя номерами строк
 firstnumber=1,
 numberfirstline=true
 numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
-backgroundcolor=\color{white}, % цвет фона подсветки - используем \usepackage{color}
-showspaces=false,            % показывать или нет пробелы специальными отступами
-showstringspaces=false,      % показывать или нет пробелы в строках
-showtabs=false,             % показывать или нет табуляцию в строках
-frame=single,              % рисовать рамку вокруг кода
-tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
-captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
-breaklines=true,           % автоматически переносить строки (да\нет)
-breakatwhitespace=false, % переносить строки только если есть пробел
-escapeinside={\%*}{*)}   % если нужно добавить комментарии в коде
+backgroundcolor=\color{white},% цвет фона подсветки - используем \usepackage{color}
+showspaces=false,             % показывать или нет пробелы специальными отступами
+showstringspaces=false,       % показывать или нет пробелы в строках
+showtabs=false,               % показывать или нет табуляцию в строках
+frame=single,                 % рисовать рамку вокруг кода
+tabsize=2,                    % размер табуляции по умолчанию равен 2 пробелам
+captionpos=t,                 % позиция заголовка вверху [t] или внизу [b] 
+breaklines=true,              % автоматически переносить строки (да\нет)
+breakatwhitespace=false,      % переносить строки только если есть пробел
+escapeinside={\%*}{*)}        % если нужно добавить комментарии в коде
 }
 
 \titlespacing{\chapter}{0pt}{10pt}{6pt}
