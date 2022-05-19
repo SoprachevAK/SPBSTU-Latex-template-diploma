@@ -1,0 +1,40 @@
+{
+    "files.exclude": {
+        "**/*.aux": true,
+        "**/*.log": true,
+        "**/*.synctex.gz": true,
+        "**/*.toc": true,
+        "**/*.bbl": true,
+        "**/*.bcf": true,
+        "**/*.run.xml": true,
+        "**/*.blg": true,
+        "**/*.fdb_latexmk": true,
+        "**/*.xdv": true,
+        "**/*.fls": true,
+
+        "**/*(busy)*": true
+    },
+    "latex-workshop.latex.recipes": [
+		{
+			"name": "BUILD",
+			"tools": [
+				"xelatexmk"
+			]
+		},
+    ],
+    "latex-workshop.latex.tools": [
+		{
+			"name": "xelatexmk",
+			"command": "latexmk",
+			"args": [
+				"-xelatex",
+				"-synctex=1",
+				"-interaction=nonstopmode",
+				"-file-line-error",
+				"-outdir=%OUTDIR%",
+				"%DOC%"
+			],
+			"env": {}
+		},
+    ]
+}
