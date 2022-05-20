@@ -120,13 +120,16 @@
 \usepackage{placeins} % floatbarrier
 \usepackage{setspace} %line spacing
 
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt}
+\setlist[enumerate]{noitemsep, topsep=0pt}
 
 % Меняем везде перечисления на цифра.цифра
-\renewcommand{\theenumi}{\arabic{enumi}}
-\renewcommand{\labelenumi}{\arabic{enumi}}
-\renewcommand{\theenumii}{.\arabic{enumii}}
+\renewcommand{\theenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\theenumii}{.\arabic{enumii}.}
 \renewcommand{\labelenumii}{\hspace*{1cm}\arabic{enumi}.\arabic{enumii}.}
-\renewcommand{\theenumiii}{.\arabic{enumiii}}
+\renewcommand{\theenumiii}{.\arabic{enumiii}.}
 \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}
 
 \renewcommand{\cellalign}{vh}
@@ -157,6 +160,7 @@ escapeinside={\%*}{*)}        % если нужно добавить комме�
 
 \titlespacing{\chapter}{0pt}{10pt}{6pt}
 
+\input{custom-setup.tex}
 
 \begin{document}
   \selectlanguage{russian}
