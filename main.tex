@@ -9,7 +9,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
-\usepackage[russian,english]{babel}
+\usepackage[english,russian]{babel}
 \usepackage{fontspec}
 \setmainfont{Times New Roman}
 
@@ -174,7 +174,9 @@ escapeinside={\%*}{*)}        % если нужно добавить комме�
 
     \newpage
   \chapter*{Abstract}
-    \input{pages/1-referat-en.tex}
+    \begin{otherlanguage}{english}
+      \input{pages/1-referat-en.tex}
+    \end{otherlanguage}
 
     \newpage
     \disableboldchapterintoc
