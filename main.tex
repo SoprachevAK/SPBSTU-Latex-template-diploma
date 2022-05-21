@@ -89,6 +89,13 @@
 
 \renewcommand{\cftdotsep}{1}
 
+\makeatletter
+\renewcommand\chapter{\par%
+  \thispagestyle{plain}%
+  \global\@topnum\z@
+  \@afterindentfalse
+  \secdef\@chapter\@schapter}
+\makeatother
 
 \makeatletter
 \renewcommand\large{\@setfontsize\large{14}{16}}
