@@ -83,24 +83,11 @@
 \cftsetindents{section}{0pt}{1.0\baselineskip}
 \cftsetindents{chapter}{0pt}{1.0\baselineskip}
 
+\titlecontents{chapter}[0pt]{}{\chaptername\ \thecontentslabel. }{}{\cftdotfill{\cftsecdotsep}\contentspage}
+
 \titlelabel{\thetitle.\quad}
 
-
-\titlecontents{chapter}% <section-type>
-[0pt]% <left>
-{}% <above-code>
-{\chaptername\ \thecontentslabel. }% <numbered-entry-format>
-{}% <numberless-entry-format>
-{\cftdotfill{\cftsecdotsep}\contentspage}% <filler-page-format>
 \renewcommand{\cftdotsep}{1}
-
-\makeatletter
-\renewcommand\chapter{\par%
-  \thispagestyle{plain}%
-  \global\@topnum\z@
-  \@afterindentfalse
-  \secdef\@chapter\@schapter}
-\makeatother
 
 
 \makeatletter
@@ -110,12 +97,21 @@
 \makeatother
 
 \usepackage{xargs}
-\newcommandx{\fig}[3][1=, 2=1]{
+\newcommandx{\fig}[4][1=, 2=1, 3=]{
   \begin{figure}[H]
     \centering
-    \includegraphics[width=#2\textwidth]{#3}
+    \includegraphics[width=#2\textwidth]{#4}
     \caption{#1}
+    \label{#3}
   \end{figure}
+}
+
+\newcommand{\refAppendix}[1]{
+  (Приложение \ref{#1})
+}
+
+\newcommand{\refImg}[1]{
+  (рис. \ref{#1})
 }
 
 \usepackage{placeins} % floatbarrier
@@ -205,5 +201,11 @@ escapeinside={\%*}{*)}        % если нужно добавить комме�
     \newpage
     \chaperWONum{Список источников}
     \printbibliography[heading=none]
+
+    \newpage
+    \appendix
+    \renewcommand{\thechapter}{\Asbuk{chapter}}
+    \addtocontents{toc}{\protect\renewcommand{\protect\chaptername}{Приложение}}
+    \input{pages/5-appendix.tex}
 
 \end{document}
