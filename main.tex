@@ -167,14 +167,20 @@ escapeinside={\%*}{*)}        % если нужно добавить комме�
 
 \begin{document}
   \selectlanguage{russian}
+
+  \input{settings.tex}
+  \pagenumbering{gobble}
+
   \begin{spacing}{1}
-    \pagenumbering{gobble} % disable page numbering
-    \input{pages/titlepage}% это титульный лист для диплома
+    \input{pages/titlepage}
   \end{spacing}
 
+
+  \newpage
+  \input{pages/task}
+
+  \newpage
   \sloppy
-  \setcounter{page}{2}
-  \pagenumbering{arabic} % enable page numbering back
 
   \chapter*{Реферат}
     \input{pages/1-referat-ru.tex}
@@ -193,6 +199,8 @@ escapeinside={\%*}{*)}        % если нужно добавить комме�
     \tableofcontents
     \newpage
 
+    \pagenumbering{arabic}
+    \setcounter{page}{6}
 
     % введение
     \chaperWONum{Введение}
